@@ -76,6 +76,7 @@ Used in the demos for continuity but has no direct connection to Disintegrate:
 Events are fired on the Disintegrate element itself. 
 
 - `disesLoaded` - Fires when Disintegrate is done processing all of the Disintegrate elements on the page. 
+- `particlesReady` - Fires when all of the html2canvas canvases have been created. 
 - `disOutOfBounds` - Fires when a contained Disintegrate element goes completely outside of its container's bounds. 
 - `disInBounds` - Fires when a contained Disintegrate element completely reenters its container's bounds after having gone out of its parent's bounds before. 
 - `disComplete` - Fires when the animation duration for the Disintegrate element is complete (i.e. all particles are done animating). 

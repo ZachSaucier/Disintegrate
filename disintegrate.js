@@ -437,8 +437,10 @@ function createSimultaneousParticles(disObj) {
 }
 
 // Take a "screenshot" of the given Dis object's element using html2canvas
+var numCanvasesLoaded = 0;
 function getScreenshot(disObj) {
   html2canvas(disObj.elem, { scale: 1 }).then( canvas => {
+    numCanvasesLoaded++;
     if(typeof disObj.scrnCanvas === "undefined") {
       disObj.scrnCanvas = canvas;
       disObj.scrnCtx = canvas.getContext('2d');
@@ -459,6 +461,10 @@ function getScreenshot(disObj) {
       disObj.canvas.class = "disParticleCanvas";
       disObj.ctx = disObj.canvas.getContext('2d');
       document.body.appendChild(disObj.canvas);
+    }
+
+    if(numCanvasesLoaded === dises.length) {
+      window.dispatchEvent(new Event('particlesReady'));
     }
   });
 }
