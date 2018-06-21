@@ -1,0 +1,171 @@
+/* tamil */
+@font-face {
+  font-family: 'Catamaran';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Catamaran Regular'), local('Catamaran-Regular'), url(https://fonts.gstatic.com/s/catamaran/v4/o-0IIpQoyXQa2RxT7-5r8zRAW_0.woff2) format('woff2');
+  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Catamaran';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Catamaran Regular'), local('Catamaran-Regular'), url(https://fonts.gstatic.com/s/catamaran/v4/o-0IIpQoyXQa2RxT7-5r6zRAW_0.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Catamaran';
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: local('Catamaran Regular'), local('Catamaran-Regular'), url(https://fonts.gstatic.com/s/catamaran/v4/o-0IIpQoyXQa2RxT7-5r5TRA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+*  {
+  box-sizing: border-box;
+}
+
+body {
+  /* navy blue */
+  background-color: #141E30; 
+  background-image: linear-gradient(to right, #243B55, #141E30); 
+  color: white;
+
+  font-family: 'Catamaran', sans-serif;
+
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.middle-container {
+  max-width: 600px;
+  padding: 0 1em;
+  margin: 0 auto;
+}
+.section-container {
+  position: relative;
+  border: 1px solid white;
+  min-height: 250px;
+  overflow: hidden;
+  text-align: center;
+  padding: 2em 1em;
+}
+
+.github {
+  width: 30px;
+  fill: white;
+  padding-left: 5px;
+}
+
+.title-section {
+  padding: 3em 1em;
+}
+.title-section h1 {
+  margin-bottom: 0;
+}
+.title-section p {
+  margin-top: 0;
+}
+
+code {
+  color: #7894c3;
+}
+
+pre {
+  background: #292929;
+  color: #fafafa;
+  font-size: 12px;
+  padding: 0;
+  padding: 10px;
+  overflow: auto;
+}
+pre:before {
+  display: block;
+  width: 100%;
+  margin-left: -3px;
+  margin-top: -3px;
+  padding: 3px;
+  text-transform: uppercase;
+  content: attr(data-lang);
+  background: #7894c3;
+}
+@media screen and (min-width: 600px) {
+  pre {
+    font-size: 14px;
+  }
+}
+
+button {
+  text-align: center;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 1em;
+
+  padding: 0.3em;
+}
+button[data-dis-type] {
+  margin-bottom: 1em;
+  min-width: 135px;
+  max-width: 200px;
+  min-height: 50px;
+  border: 0;
+  outline: 0;
+
+  color: white;
+
+  /* pink to orange */
+  background: #ee0979; 
+  background: linear-gradient(to right, #ee0979, #ff6a00);
+}
+
+
+.grid-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  align-items: center;
+  justify-items: center;
+  overflow: hidden;
+  padding: 4rem 1.5rem;
+  height: 100vw;
+  width: 100vw;
+
+  background-color: black;
+}
+@media screen and (min-width: 800px) {
+  .grid {
+    display: grid;
+    grid-gap: 22px;
+    grid-template-columns: repeat(2,  calc(50vmax - 11px));
+  }
+  .grid-item {
+    height: 50vmax;
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .grid-item > div {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+}
+
+
+.view-more {
+  margin: 2em 0.5em 5em;
+  text-align: center;
+}

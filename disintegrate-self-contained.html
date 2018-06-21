@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="An example of some click effects that Disintegrate can create.">
+  <meta name="author" content="Zach Saucier">
+
+  <title>Self-contained effects demo - Disintegrate</title>
+
+  <!-- Base demo styles -->
+  <link rel="stylesheet" href="disintegrate-demo-styles.css">
+
+  <!-- Custom styles for this template -->
+  <style type="text/css">
+  
+  /* Generic click behavior */
+  [data-dis-type="self-contained"] {
+    cursor: pointer;
+    border-radius: 15px;
+  }
+
+  [data-dis-container] {
+    animation: slideLeft500 0.5s ease-in paused;
+  }
+  [data-dis-type] {
+    animation: slideRight500 0.5s ease-in paused;
+  }
+
+  @keyframes slideLeft500 {
+    100% { transform: translateX(-500px); }
+  }
+  @keyframes slideRight500 {
+    100% { transform: translateX(500px); }
+  }
+
+  /* Start the animation we add a class */
+  .animate,
+  .animate [data-dis-type] {
+    /* Start the animation */
+    animation-play-state: running !important;
+    /* Make sure it doesn't show until we want it to */
+    animation-fill-mode: forwards !important;
+  }
+
+
+  /* Coloring */
+  .grid-item:nth-of-type(1) {
+    background-color: #2980b9; 
+    background-image: linear-gradient(to left, #2980b9, #6dd5fa, #ffffff);
+  }
+  .grid-item:nth-of-type(1) button {
+    background-color: #5433ff; 
+    background-image: linear-gradient(to right, #5433ff, #20bdff, #a5fecb);
+  }
+
+  .grid-item:nth-of-type(2) {
+    background-color: #00b09b;
+    background-image: linear-gradient(to right, #00b09b, #96c93d);
+  }
+  .grid-item:nth-of-type(2) button {
+    background-color: #4ECDC4;  
+    background-image: linear-gradient(to right, #556270, #4ECDC4);
+  }
+  
+  .grid-item:nth-of-type(3) {
+    background-color: #8e2de2; 
+    background-image: linear-gradient(to right, #8e2de2, #4a00e0);
+  }
+  .grid-item:nth-of-type(3) button {
+    
+  }
+  
+  .grid-item:nth-of-type(4) {
+    background-color: #536976; 
+    background-image: linear-gradient(to left, #536976, #292e49);
+  }
+  .grid-item:nth-of-type(4) button {
+    background-color: #ff0099; 
+    background-image: linear-gradient(to right, #ff0099, #493240);
+  }
+
+  .grid-item:nth-of-type(5) {
+    background-color: #b3ffab; 
+    background: linear-gradient(to right, #b3ffab, #12fff7);
+  }
+  .grid-item:nth-of-type(5) button {
+    background-color: #005aa7; 
+    background-image: linear-gradient(to right, #005aa7, #fffde4);
+  }
+
+  .grid-item:nth-of-type(6) {
+    background-color: #833ab4; 
+    background-image: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+  }
+  .grid-item:nth-of-type(6) button {
+    background-color: #c6ffdd; 
+    background-image: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  }
+
+
+
+  /* Specific click effects */
+  .grid-item:nth-of-type(1) [data-dis-container] {
+    animation: slideUpLeft 0.5s ease-in paused;
+  }
+  .grid-item:nth-of-type(1) [data-dis-type] {
+    animation: slideDownRight 0.5s ease-in paused;
+    border-radius: 9999px;
+  }
+  @keyframes slideUpLeft {
+    100% { transform: translate(-135px, -50px); }
+  }
+  @keyframes slideDownRight {
+    100% { transform: translate(135px, 50px); }
+  }
+
+  .grid-item:nth-of-type(2) [data-dis-container] {
+    animation: slideRight500 0.8s ease-in paused;
+  }
+  .grid-item:nth-of-type(2) [data-dis-type] {
+    width: 400px;
+    height: 75px;
+    animation: slideRight650 0.8s ease-in paused;
+  }
+  @keyframes slideRight650 {
+    100% { transform: translateX(650px); }
+  }
+
+  .grid-item:nth-of-type(3) [data-dis-container] {
+    animation: bounce 1s ease-in-out paused;
+  }
+  .grid-item:nth-of-type(3) [data-dis-type] {
+    animation: counterBounce 1s ease-in-out paused;
+  }
+  @keyframes bounce {
+    20% { transform: translateY(-50px); }
+    100% { transform: translateY(500px); }
+  }
+  @keyframes counterBounce {
+    30% { transform: translateY(0); }
+    100% { transform: translateY(200px); }
+  }
+
+  .grid-item:nth-of-type(4) [data-dis-container] {
+    animation: slideRight500 1s ease-in-out paused;
+  }
+  .grid-item:nth-of-type(4) [data-dis-type] {
+    height: 135px;
+    border-radius: 35px;
+    animation: slideLeft500 1s ease-in-out paused;
+  }
+  
+  .grid-item:nth-of-type(5) [data-dis-container] {
+    animation: becomeNothing 0.1s ease-in paused;
+  }
+  .grid-item:nth-of-type(5) [data-dis-type] {
+    height: 135px;
+    background: transparent;
+    border: 2px solid #5aa9eb;
+    animation: slideUpLeft68 0.1s ease-in paused;
+  }
+  @keyframes becomeNothing {
+    0% { width: 135px; height: 135px; }
+    100% { width: 0; height: 0; }
+  }
+  @keyframes slideUpLeft68 {
+    100% { transform: translate(-67.5px, -67.5px); }
+  }
+
+  .grid-item:nth-of-type(6) [data-dis-container] {
+    animation: squashHorizontalSides 0.3s ease-in paused;
+  }
+  .grid-item:nth-of-type(6) [data-dis-type] {
+    animation: slideLeft68 0.3s ease-in paused;
+  }
+  @keyframes squashHorizontalSides {
+    0% { width: 135px; transform: translateX(0); }
+    100% { width: 0; transform: translateX(-0px); }
+  }
+  @keyframes slideLeft68 {
+    100% { transform: translateX(-67.5px); }
+  }
+  
+  </style>
+</head>
+
+<body>
+
+<div class="middle-container title-section">
+  <h1>
+    <a href="https://github.com/ZachSaucier/Disintegrate/" title="Find this project on GitHub">
+      Disintegrate 
+      <svg class="github" viewBox="0 0 33 33">
+        <title>GitHub</title>
+        <path d="M16.608.455C7.614.455.32 7.748.32 16.745c0 7.197 4.667 13.302 11.14 15.456.815.15 1.112-.353 1.112-.785 0-.386-.014-1.411-.022-2.77-4.531.984-5.487-2.184-5.487-2.184-.741-1.882-1.809-2.383-1.809-2.383-1.479-1.01.112-.99.112-.99 1.635.115 2.495 1.679 2.495 1.679 1.453 2.489 3.813 1.77 4.741 1.353.148-1.052.569-1.77 1.034-2.177-3.617-.411-7.42-1.809-7.42-8.051 0-1.778.635-3.233 1.677-4.371-.168-.412-.727-2.069.16-4.311 0 0 1.367-.438 4.479 1.67a15.602 15.602 0 0 1 4.078-.549 15.62 15.62 0 0 1 4.078.549c3.11-2.108 4.475-1.67 4.475-1.67.889 2.242.33 3.899.163 4.311C26.37 12.66 27 14.115 27 15.893c0 6.258-3.809 7.635-7.437 8.038.584.503 1.105 1.497 1.105 3.017 0 2.177-.02 3.934-.02 4.468 0 .436.294.943 1.12.784 6.468-2.159 11.131-8.26 11.131-15.455 0-8.997-7.294-16.29-16.291-16.29"></path>
+      </svg>
+    </a>
+  </h1>
+
+  <p><i>"to reduce to particles, fragments, or parts; break up or destroy the cohesion of"</i></p>
+</div>
+
+<div class="middle-container">
+  <h2>Self-contained demo - <a href="#"><i>view source</i></a></h2>
+</div>
+
+<div class="grid">
+  <div class="grid-item">
+    <button data-dis-type="self-contained" class="clickable">Close</button>
+  </div>
+  <div class="grid-item">
+    <button data-dis-type="self-contained" data-dis-particle-type="ExplodeToRightParticle" class="clickable">Unlock</button>
+  </div>
+  <div class="grid-item">
+    <button data-dis-type="self-contained" data-dis-particle-type="HollowCircles" class="clickable">Okay</button>
+  </div>
+  <div class="grid-item">
+    <button data-dis-type="self-contained" class="clickable">Send</button>
+  </div>
+  <div class="grid-item">
+    <button data-dis-type="self-contained" data-dis-particle-type="ExplodingParticle" data-dis-reduction-factor="50" data-dis-color="[90, 169, 235]" class="clickable">Destroy</button>
+  </div>
+  <div class="grid-item">
+    <button data-dis-type="self-contained" class="clickable"><i>Get happy!!</i></button>
+  </div>
+</div>
+
+<div class="middle-container">
+  <h2>Relevant code (not including particular click effects):</h2>
+
+  <pre data-lang='hmtl' class='prettyprint'>
+&lt;button data-dis-type="self-contained"&gt;Some text&lt;/button&gt;</pre>
+
+  <p><a href="#"><i>View the source</i></a> for particular click effects.</p>
+</div>
+
+<div class="middle-container">
+  <p><h2 class="view-more"><a href="#">View more demos</a></h2></p>
+</div>
+
+</body>
+<script type="text/javascript" src="html2canvas.min.js"></script>
+<script type="text/javascript" src="disintegrate.js"></script>
+
+<script type="text/javascript">
+if(document.querySelector('[data-dis-type="self-contained"]')) {
+  // If you do anything with dises, you need to wait for them to 
+  // all finish loading
+  window.addEventListener("disesLoaded", function() {
+    dises.forEach(function(disObj) {
+      if(disObj.elem.dataset.disType === "self-contained") {
+        disObj.container.addEventListener("click", function(e) {
+          disObj.container.classList.add("animate");
+        });
+
+        disObj.elem.addEventListener("disComplete", function(e) {
+          disObj.container.classList.remove("animate");
+
+          // Hack to reset the CSS animations
+          // see https://stackoverflow.com/a/6303311/2065702 for more info
+          resetCSSAnimation(disObj.container);
+          resetCSSAnimation(disObj.elem);
+        });
+
+        function resetCSSAnimation(el) {
+          el.style.animation = "none";
+          setTimeout(function() {
+              el.style.animation = "";
+          }, 10);
+        }
+      }
+    });
+  });
+}
+</script>
