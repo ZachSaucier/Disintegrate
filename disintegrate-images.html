@@ -3,24 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="An example of how a Disintegrate effect can be applied by a trigger element.">
+  <meta name="description" content="A demo showing Disintegrate working with images.">
   <meta name="author" content="Zach Saucier">
 
-  <title>Trigger demo - Disintegrate</title>
+  <title>Image demo - Disintegrate</title>
 
   <!-- Base demo styles -->
   <link rel="stylesheet" href="disintegrate-demo-styles.css">
 
   <!-- Custom styles for this template -->
   <style type="text/css">
-  [data-dis-container] {
-    vertical-align: bottom;
-  }
-  button[data-dis-type] {
-    margin: 0;
-  }
-
-  [data-dis-trigger-for] {
+  .clickable {
     cursor: pointer;
   }
 
@@ -68,12 +61,11 @@
 </div>
 
 <div class="middle-container">
-  <h2>Trigger demo - <a href="https://zachsaucier.github.io/Disintegrate/disintegrate-trigger.html"><i>view source</i></a></h2>
+  <h2>Image demo - <a href="#"><i>view source</i></a></h2>
 </div>
 
 <div class="middle-container section-container">
-  <button data-dis-type="self-contained" data-dis-id="myDisId">Click the button</button>
-  <button data-dis-trigger-for="myDisId">Explode the image</button>
+  <img src="kitten.jpg" data-dis-type="self-contained" data-dis-particle-type="ExplodingParticle" class="clickable">
 </div>
 
 
@@ -82,11 +74,8 @@
 
   <pre data-lang='hmtl' class='prettyprint'>
 &lt;div class="middle-container section-container"&gt;
-  &lt;button data-dis-type="self-contained" data-dis-id="myDisId"&gt;
-    Click the button
-  &lt;/button&gt;
-  &lt;button data-dis-trigger-for="myDisId"&gt;
-    Explode the image
+  &lt;button data-dis-type="self-contained" class="clickable"&gt;
+    Click me
   &lt;/button&gt;
 &lt;/div&gt;</pre>
 
@@ -96,35 +85,30 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
   // all finish loading
   window.addEventListener("disesLoaded", function() {
     // Iterate through all elements with 'dis-trigger-for' attribute
-    document.querySelectorAll("[data-dis-trigger-for]").forEach(function(triggerEl) {
+    document.querySelectorAll(".clickable").forEach(function(el) {
+      // Get the relevant Disintegrate object
+      var disObj = getDisObj(el);
 
-      // Get the matching Disintegrate element
-      var el = document.querySelector("[data-dis-id = '" + triggerEl.dataset.disTriggerFor + "']");
-      if(el) {
-        // Get the relevant Disintegrate object
-        var disObj = getDisObj(el);
+      // Apply our trigger
+      el.addEventListener("click", function(e) {
+        disObj.container.classList.add("animate");
+      });
 
-        // Apply our trigger
-        triggerEl.addEventListener("click", function(e) {
-          disObj.container.classList.add("animate");
-        });
+      // Reset the animation (for demo purposes)
+      el.addEventListener("disComplete", function(e) {
+        disObj.container.classList.remove("animate");
 
-        // Reset the animation (for demo purposes)
-        disObj.elem.addEventListener("disComplete", function(e) {
-          disObj.container.classList.remove("animate");
+        // Hack to reset the CSS animations
+        // see https://stackoverflow.com/a/6303311/2065702 for more info
+        resetCSSAnimation(disObj.container);
+        resetCSSAnimation(el);
+      });
 
-          // Hack to reset the CSS animations
-          // see https://stackoverflow.com/a/6303311/2065702 for more info
-          resetCSSAnimation(disObj.container);
-          resetCSSAnimation(disObj.elem);
-        });
-
-        function resetCSSAnimation(elem) {
-          elem.style.animation = "none";
-          setTimeout(function() {
-              elem.style.animation = "";
-          }, 10);
-        }
+      function resetCSSAnimation(elem) {
+        elem.style.animation = "none";
+        setTimeout(function() {
+            elem.style.animation = "";
+        }, 10);
       }
     });
   });
@@ -132,7 +116,7 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
 </div>
 
 <div class="middle-container">
-  <p><h2 class="view-more"><a href="https://zachsaucier.github.io/Disintegrate/">View more demos</a></h2></p>
+  <p><h2 class="view-more"><a href="#">View more demos</a></h2></p>
 </div>
 
 <script type="text/javascript" src="html2canvas.min.js"></script>
@@ -144,35 +128,30 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
   // all finish loading
   window.addEventListener("disesLoaded", function() {
     // Iterate through all elements with 'dis-trigger-for' attribute
-    document.querySelectorAll("[data-dis-trigger-for]").forEach(function(triggerEl) {
+    document.querySelectorAll(".clickable").forEach(function(el) {
+      // Get the relevant Disintegrate object
+      var disObj = getDisObj(el);
 
-      // Get the matching Disintegrate element
-      var el = document.querySelector("[data-dis-id = '" + triggerEl.dataset.disTriggerFor + "']");
-      if(el) {
-        // Get the relevant Disintegrate object
-        var disObj = getDisObj(el);
+      // Apply our trigger
+      el.addEventListener("click", function(e) {
+        disObj.container.classList.add("animate");
+      });
 
-        // Apply our trigger
-        triggerEl.addEventListener("click", function(e) {
-          disObj.container.classList.add("animate");
-        });
+      // Reset the animation (for demo purposes)
+      el.addEventListener("disComplete", function(e) {
+        disObj.container.classList.remove("animate");
 
-        // Reset the animation (for demo purposes)
-        disObj.elem.addEventListener("disComplete", function(e) {
-          disObj.container.classList.remove("animate");
+        // Hack to reset the CSS animations
+        // see https://stackoverflow.com/a/6303311/2065702 for more info
+        resetCSSAnimation(disObj.container);
+        resetCSSAnimation(el);
+      });
 
-          // Hack to reset the CSS animations
-          // see https://stackoverflow.com/a/6303311/2065702 for more info
-          resetCSSAnimation(disObj.container);
-          resetCSSAnimation(disObj.elem);
-        });
-
-        function resetCSSAnimation(elem) {
-          elem.style.animation = "none";
-          setTimeout(function() {
-              elem.style.animation = "";
-          }, 10);
-        }
+      function resetCSSAnimation(elem) {
+        elem.style.animation = "none";
+        setTimeout(function() {
+            elem.style.animation = "";
+        }, 10);
       }
     });
   });

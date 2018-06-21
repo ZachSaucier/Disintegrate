@@ -6,7 +6,7 @@
   <meta name="description" content="An example of the simultaneous Disintegrate effect.">
   <meta name="author" content="Zach Saucier">
 
-  <title>Simultaneous demo - Disintegrate</title>
+  <title>Hover demo - Disintegrate</title>
 
   <!-- Base demo styles -->
   <link rel="stylesheet" href="disintegrate-demo-styles.css">
@@ -15,6 +15,35 @@
   <style type="text/css">
   [data-dis-type="simultaneous"] {
     cursor: pointer;
+  }
+  
+  button[data-dis-type] {
+    position: relative;
+    border-radius: 0;
+    height: 135px;
+    background: transparent;
+    border: 2px solid #5aa9eb;
+    overflow: hidden;
+  }
+  button[data-dis-type].hovered {
+    top: -300px; /* Hide it while the screenshot is being taken */
+    background-image: linear-gradient(to top right, #005aa7, #fffde4);
+  }
+  button[data-dis-type]::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -80px;
+    z-index: -1;
+    width: 0;
+    height: 136px;
+    transform: skew(50deg);
+    transition-duration: 0.3s;
+    background-color: #005aa7; 
+    background-image: linear-gradient(to right, #005aa7, #fffde4);
+  }
+  button[data-dis-type]:hover::after {
+    width: 455px;
   }
   </style>
 </head>
@@ -36,11 +65,11 @@
 </div>
 
 <div class="middle-container">
-  <h2>Simultaneous demo - <a href="https://zachsaucier.github.io/Disintegrate/disintegrate-simultaneous.html"><i>view source</i></a></h2>
+  <h2>Hover demo - <a href="#"><i>view source</i></a></h2>
 </div>
 
 <div class="middle-container section-container">
-  <button data-dis-type="simultaneous" data-dis-particle-type="ExplodingParticle">Click me</button>
+  <button data-dis-type="simultaneous" data-dis-particle-type="ExplodingParticle" class="hovered">Click me</button>
 </div>
 
 
@@ -83,12 +112,12 @@ if(document.querySelector('[data-dis-type="simultaneous"]')) {
         disObj.elem.addEventListener("click", function(e) {
           createSimultaneousParticles(disObj);
         });
-
-        disObj.elem.addEventListener("disComplete", function(e) {
-          
-        });
       }
     });
+  });
+
+  window.addEventListener("particlesReady", function() {
+    dises[0].elem.classList.remove("hovered");
   });
 }
 </script>

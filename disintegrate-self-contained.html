@@ -19,21 +19,18 @@
     cursor: pointer;
     border-radius: 15px;
   }
-
   [data-dis-container] {
     animation: slideLeft500 0.5s ease-in paused;
   }
   [data-dis-type] {
     animation: slideRight500 0.5s ease-in paused;
   }
-
   @keyframes slideLeft500 {
     100% { transform: translateX(-500px); }
   }
   @keyframes slideRight500 {
     100% { transform: translateX(500px); }
   }
-
   /* Start the animation we add a class */
   .animate,
   .animate [data-dis-type] {
@@ -42,8 +39,6 @@
     /* Make sure it doesn't show until we want it to */
     animation-fill-mode: forwards !important;
   }
-
-
   /* Coloring */
   .grid-item:nth-of-type(1) {
     background-color: #2980b9; 
@@ -53,7 +48,6 @@
     background-color: #5433ff; 
     background-image: linear-gradient(to right, #5433ff, #20bdff, #a5fecb);
   }
-
   .grid-item:nth-of-type(2) {
     background-color: #00b09b;
     background-image: linear-gradient(to right, #00b09b, #96c93d);
@@ -79,7 +73,6 @@
     background-color: #ff0099; 
     background-image: linear-gradient(to right, #ff0099, #493240);
   }
-
   .grid-item:nth-of-type(5) {
     background-color: #b3ffab; 
     background: linear-gradient(to right, #b3ffab, #12fff7);
@@ -88,7 +81,6 @@
     background-color: #005aa7; 
     background-image: linear-gradient(to right, #005aa7, #fffde4);
   }
-
   .grid-item:nth-of-type(6) {
     background-color: #833ab4; 
     background-image: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
@@ -97,9 +89,6 @@
     background-color: #c6ffdd; 
     background-image: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
   }
-
-
-
   /* Specific click effects */
   .grid-item:nth-of-type(1) [data-dis-container] {
     animation: slideUpLeft 0.5s ease-in paused;
@@ -114,7 +103,6 @@
   @keyframes slideDownRight {
     100% { transform: translate(135px, 50px); }
   }
-
   .grid-item:nth-of-type(2) [data-dis-container] {
     animation: slideRight500 0.8s ease-in paused;
   }
@@ -126,7 +114,6 @@
   @keyframes slideRight650 {
     100% { transform: translateX(650px); }
   }
-
   .grid-item:nth-of-type(3) [data-dis-container] {
     animation: bounce 1s ease-in-out paused;
   }
@@ -141,7 +128,6 @@
     30% { transform: translateY(0); }
     100% { transform: translateY(200px); }
   }
-
   .grid-item:nth-of-type(4) [data-dis-container] {
     animation: slideRight500 1s ease-in-out paused;
   }
@@ -167,7 +153,6 @@
   @keyframes slideUpLeft68 {
     100% { transform: translate(-67.5px, -67.5px); }
   }
-
   .grid-item:nth-of-type(6) [data-dis-container] {
     animation: squashHorizontalSides 0.3s ease-in paused;
   }
@@ -236,7 +221,7 @@
 </div>
 
 <div class="middle-container">
-  <p><h2 class="view-more"><a href="#">View more demos</a></h2></p>
+  <p><h2 class="view-more"><a href="https://zachsaucier.github.io/Disintegrate/">View more demos</a></h2></p>
 </div>
 
 </body>
@@ -253,16 +238,13 @@ if(document.querySelector('[data-dis-type="self-contained"]')) {
         disObj.container.addEventListener("click", function(e) {
           disObj.container.classList.add("animate");
         });
-
         disObj.elem.addEventListener("disComplete", function(e) {
           disObj.container.classList.remove("animate");
-
           // Hack to reset the CSS animations
           // see https://stackoverflow.com/a/6303311/2065702 for more info
           resetCSSAnimation(disObj.container);
           resetCSSAnimation(disObj.elem);
         });
-
         function resetCSSAnimation(el) {
           el.style.animation = "none";
           setTimeout(function() {
