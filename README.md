@@ -8,17 +8,17 @@ You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/
 ### Demos
 
 - Contained demos
-	- [Draggable demo]()
-	- [CSS animation demo]()
+	- [Draggable demo](https://zachsaucier.github.io/Disintegrate/disintegrate-draggable.html)
+	- [CSS animation demo](https://zachsaucier.github.io/Disintegrate/disintegrate-contain.html)
 
 - Self-contained demos
-	- [Click effect demos]()
+	- [Click effect demos](https://zachsaucier.github.io/Disintegrate/disintegrate-self-contained.html)
 
-- [Simultaneous demo]()
+- [Simultaneous demo](https://zachsaucier.github.io/Disintegrate/disintegrate-simultaneous.html)
 
 - Other feature demos
-	- [Trigger demo]()
-	- [Bootstrap demo]()
+	- [Trigger demo](https://zachsaucier.github.io/Disintegrate/disintegrate-trigger.html)
+	- [Bootstrap demo](https://zachsaucier.github.io/Disintegrate/disintegrate-bootstrap.html)
 
 ### Creating custom effects
 
