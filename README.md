@@ -25,7 +25,7 @@ You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/
 
 #### Adding a custom particle type
 
-To add a custom particle type, simply create your particle to match the following format. For examples of custom particle creation, see [the contained demo source](). 
+To add a custom particle type, simply create your particle to match the following format. For examples of custom particle creation, see [the self-contained demo source](https://github.com/ZachSaucier/Disintegrate/blob/gh-pages/disintegrate-self-contained.html). 
 
 ```
 /* These are the attributes that Disintegrate will update or call in a Particle */
@@ -82,19 +82,5 @@ Events are fired on the Disintegrate element itself.
 
 ### Known limitations
 
-Most limitations on this approach stem from the use of [html2canvas](http://html2canvas.hertzen.com/) to render the DOM element on a Canvas. This includes, but is not limited to, nested transforms within the Disintegrate element and the lack of clip path support. For a more full list of limitations caused by html2canvas, look at [its feature page](http://html2canvas.hertzen.com/features/)). 
-
-TODO:
-- Write article
-- Add to NPM
-- Image demo
-- Browser compatibility
-- Allow Canvas to be placed instead of element (with transparent BG - html2canvas option)?
-- Hover effects
-- Different particle types:
-	- Explode whole thing at once (not bounds based)
-	- Triangle particles
-	- Rotating rectangles (confetti-ish)
-	- Snow effect
-- 
+Most limitations on this approach stem from the use of [html2canvas](http://html2canvas.hertzen.com/) to render the DOM element on a Canvas. This includes, but is not limited to, nested transforms within the Disintegrate element and the lack of clip path support. For a more full list of limitations caused by html2canvas, look at [its feature page](http://html2canvas.hertzen.com/features/)). 	
 
