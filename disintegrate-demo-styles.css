@@ -46,10 +46,12 @@ h1, h2, h3 {
 }
 
 a {
-  text-decoration: none;
   color: white;
 }
-a:hover {
+h1 a {
+  text-decoration: none;
+}
+h1 a:hover {
   text-decoration: underline;
 }
 
