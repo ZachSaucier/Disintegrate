@@ -20,6 +20,11 @@ You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/
 	- [Trigger demo](https://zachsaucier.github.io/Disintegrate/disintegrate-trigger.html)
 	- [Hover demo](https://zachsaucier.github.io/Disintegrate/disintegrate-hover.html)
 
+### Built-in particle types
+
+- `Particle` - A rectangular particle that goes up in a sin wave, fading as it goes.
+- `ExplodingParticle` - A circular particle that goes in a random direction from its start point, getting smaller as it goes.
+
 ### Creating custom effects
 
 #### Adding a custom particle type
