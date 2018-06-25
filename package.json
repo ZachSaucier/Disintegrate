@@ -1,0 +1,29 @@
+{
+  "name": "disintegrate",
+  "version": "1.0.0",
+  "description": "Break DOM elements into animated Canvas particles using html2canvas.",
+  "main": "disintegrate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZachSaucier/Disintegrate.git"
+  },
+  "keywords": [
+    "animation",
+    "dom",
+    "canvas",
+    "html2canvas",
+    "particles"
+  ],
+  "author": "Zach Saucier",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ZachSaucier/Disintegrate/issues"
+  },
+  "homepage": "https://github.com/ZachSaucier/Disintegrate#readme",
+  "dependencies": {
+    "html2canvas": "^1.0.0-alpha.12"
+  }
+}

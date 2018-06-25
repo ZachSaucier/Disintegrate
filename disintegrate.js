@@ -1,3 +1,19 @@
+// UMD format: https://github.com/umdjs/umd/blob/master/templates/returnExports.js#L17
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module
+    define(['html2canvas'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory(require('html2canvas'));
+  } else {
+    // Browser globals
+    root.disintegrate = factory(root.html2canvas);
+  }
+}(typeof self !== 'undefined' ? self : this, function (html2canvas) {
+
 "use strict"
 
 /********************/
@@ -43,9 +59,9 @@ function getNumberArraysFromString(string) {
 /* Disintegrate functions */
 /**************************/
 
-var disElems = document.querySelectorAll("[data-dis-type]"),
+var disElems,
     dises = [],
-    disParticleTypes = ["Particle"];
+    disParticleTypes = [];
 
 // Create a disObj for each Disintegrate element detected
 function processDisElement(el) {
@@ -64,7 +80,7 @@ function processDisElement(el) {
     particleColor = getNumberArraysFromString(el.dataset.disColor)[0];
   }
 
-  let particleReductionFactor = 17;
+  let particleReductionFactor = 35;
   if(el.dataset.disReductionFactor) {
     particleReductionFactor = parseInt(el.dataset.disReductionFactor);
   }
@@ -500,16 +516,16 @@ function createParticle(disObj, localX, localY, worldX, worldY, rgbArr, arrayInd
   }
 
   if(!dontCreate) {
-    let typeName = "Particle";
+    let myType = disParticleTypes[0];
     // Make sure the particle type is in Disintegrate's particle type list
-    disParticleTypes.forEach( name => {
-      if(name === disObj.particleType) {
-        typeName = disObj.particleType;
+    disParticleTypes.forEach( type => {
+      if(type.name === disObj.particleType) {
+        myType = type;
       }
     });
 
     // Actually create the particle
-    let particle = new window[typeName];
+    let particle = new myType;
     particle.rgbArray = rgbArr;
     particle.startX = worldX;
     particle.startY = worldY;
@@ -565,8 +581,8 @@ function getDisObj(el) {
 }
 
 // Add a particle type for Disintegrate to recognize and look for
-function disAddParticleType(name) {
-  disParticleTypes.push(name);
+function addParticleType(func) {
+  disParticleTypes.push(func);
 }
 
 // Returns a Uint8ClampedArray of image color data in r, g, b, a format per pixel
@@ -593,37 +609,40 @@ function disUpdate() {
 /*********************/
 
 // Assure the initial capture is done
-window.addEventListener("load", () => {
-  // Setup
-  disElems.forEach( el => {
-    if(el.tagName !== "IMG" || el.complete) {
-      processDisElement(el);
-    } else {
-      el.addEventListener("load", e => {
+function init() {
+  disElems = document.querySelectorAll("[data-dis-type]");
+  
+  window.addEventListener("load", () => {
+    // Setup
+    disElems.forEach( el => {
+      if(el.tagName !== "IMG" || el.complete) {
         processDisElement(el);
-      });
-    }
-  });
-});
-
-// Update the screenshot and canvas sizes when the window changes size
-var resizeTimer;
-window.addEventListener("resize", e => {
-
-  // Wait for resize to "finish"
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout( () => {
-
-    dises.forEach( disObj => {
-      getScreenshot(disObj);
-
-      disObj.canvas.width = document.documentElement.scrollWidth; 
-      disObj.canvas.height = document.documentElement.scrollHeight;
+      } else {
+        el.addEventListener("load", e => {
+          processDisElement(el);
+        });
+      }
     });
+  });
 
-  }, 250);
-});
+  // Update the screenshot and canvas sizes when the window changes size
+  var resizeTimer;
+  window.addEventListener("resize", e => {
 
+    // Wait for resize to "finish"
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout( () => {
+
+      dises.forEach( disObj => {
+        getScreenshot(disObj);
+
+        disObj.canvas.width = document.documentElement.scrollWidth; 
+        disObj.canvas.height = document.documentElement.scrollHeight;
+      });
+
+    }, 250);
+  });
+}
 
 
 
@@ -642,6 +661,7 @@ const EaseIn    = power => t => Math.pow(t, power),
       EaseOut   = power => t => 1 - Math.abs(Math.pow(t-1, power)),
       EaseInOut = power => t => t<.5 ? EaseIn(power)(t*2)/2 : EaseOut(power)(t*2 - 1)/2+0.5;
 var Particle = function() {
+  this.name = "Particle";
   this.animationDuration = 1000; // in ms
 
   this.widthScaler = Math.round(50 * genNormalizedVal()); // Normalized val between -50 and 50
@@ -669,10 +689,12 @@ var Particle = function() {
     ctx.fillRect(currX - currSize / 2, currY  - currSize / 2, currSize, currSize);
   };
 };
+addParticleType(Particle);
 
 
 /* An "exploding" particle effect that uses circles */
 var ExplodingParticle = function() {
+  this.name = "ExplodingParticle";
   this.animationDuration = 1000; // in ms
 
   this.speed = {
@@ -683,79 +705,27 @@ var ExplodingParticle = function() {
   this.life = 30 + Math.random() * 10;
   this.remainingLife = this.life;
   this.draw = ctx => {
-    let p = this;
-
     if(this.remainingLife > 0
     && this.radius > 0) {
       ctx.beginPath();
-      ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2);
+      ctx.arc(this.startX, this.startY, this.radius, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(" + this.rgbArray[0] + ',' + this.rgbArray[1] + ',' + this.rgbArray[2] + ", 1)";
       ctx.fill();
-      p.remainingLife--;
-      p.radius -= 0.25;
-      p.startX += p.speed.x;
-      p.startY += p.speed.y;
+      this.remainingLife--;
+      this.radius -= 0.25;
+      this.startX += this.speed.x;
+      this.startY += this.speed.y;
     }
   }
 }
-disAddParticleType("ExplodingParticle");
+addParticleType(ExplodingParticle);
 
-var ExplodeToRightParticle = function() {
-  this.animationDuration = 500; // in ms
 
-  this.speed = {
-    x: 0 + Math.random() * 6,
-    y: -1.5 + Math.random() * 3
-  };
-  this.radius = 0 + Math.random() * 5;
-  this.life = 30 + Math.random() * 10;
-  this.remainingLife = this.life;
-  this.draw = ctx => {
-    let p = this;
-
-    if(this.remainingLife > 0
-    && this.radius > 0) {
-      ctx.beginPath();
-      ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(" + this.rgbArray[0] + ',' + this.rgbArray[1] + ',' + this.rgbArray[2] + ", 1)";
-      ctx.fill();
-      p.remainingLife--;
-      p.radius -= 0.1;
-      p.startX += p.speed.x;
-      p.startY += p.speed.y;
-    }
-  }
-}
-disAddParticleType("ExplodeToRightParticle");
-
-var HollowCircles = function() {
-  this.animationDuration = 1000; // in ms
-
-  this.widthScaler = Math.round(50 * genNormalizedVal()); // Normalized val between -50 and 50
-  this.numWaves = (genNormalizedVal() + 1 / 2) * 2 + 1;
-  this.xPosFunc = t => { return Math.sin(this.numWaves * Math.PI * t); }; 
-
-  this.heightScaler = Math.round(65 * (genNormalizedVal() + 1) / 2) + 10; // Normalized val between 10 and 75
-  this.yPosFunc = t => { return t; }; 
-  
-  this.startRadius = 5 + Math.random() * 7;
-  this.sizeFunc = t => { return 1 - t; };
-
-  this.opacityFactor = Math.round(((genNormalizedVal() + 1) / 2) * 3 + 1);
-  this.opacityFunc = t => { return 1 - EaseInOut(this.opacityFactor)(t); };
-  
-  this.draw = (ctx, percent) => {
-    percent = percent >= 1 ? 1 : percent;
-
-    let currX = this.startX + this.xPosFunc(percent) * this.widthScaler;
-    let currY = this.startY - this.yPosFunc(percent) * this.heightScaler;
-    let radius = this.startRadius * this.sizeFunc(percent);
-    let currOpacity = this.opacityFunc(percent);
-
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(" + this.rgbArray[0] + ',' + this.rgbArray[1] + ',' + this.rgbArray[2] + ',' + currOpacity + ")";
-    ctx.arc(currX, currY, radius, 0, Math.PI * 2);
-    ctx.stroke();
-  };
+return {
+  init,
+  dises,
+  createSimultaneousParticles,
+  getDisObj,
+  addParticleType
 };
-disAddParticleType("HollowCircles");
+}));
