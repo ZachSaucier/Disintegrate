@@ -69,11 +69,13 @@
 
 <div class="middle-container">
   <h2>Trigger demo - <a href="https://zachsaucier.github.io/Disintegrate/disintegrate-trigger.html"><i>view source</i></a></h2>
+
+  <p>Since non-simultaneous Disintegrate objects create particles based on bounds, in order to trigger a particle effect on another element we just have to move that element the way that we want to when the trigger event happens. In this case, a click effect is used to trigger the animation in our button.</p>
 </div>
 
 <div class="middle-container section-container">
-  <button data-dis-type="self-contained" data-dis-id="myDisId">Click the button</button>
-  <button data-dis-trigger-for="myDisId">Explode the image</button>
+  <button data-dis-type="self-contained" data-dis-id="myDisId">I'm a button</button>
+  <button data-dis-trigger-for="myDisId">Explode the button</button>
 </div>
 
 
@@ -83,14 +85,16 @@
   <pre data-lang='hmtl' class='prettyprint'>
 &lt;div class="middle-container section-container"&gt;
   &lt;button data-dis-type="self-contained" data-dis-id="myDisId"&gt;
-    Click the button
+    I'm a button
   &lt;/button&gt;
   &lt;button data-dis-trigger-for="myDisId"&gt;
-    Explode the image
+    Explode the button
   &lt;/button&gt;
 &lt;/div&gt;</pre>
 
   <pre data-lang='javascript' class='prettyprint'>
+disintegrate.init();
+
 if(document.querySelectorAll("[data-dis-trigger-for]")) {
   // If you do anything with dises, you need to wait for them to 
   // all finish loading
@@ -102,7 +106,7 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
       var el = document.querySelector("[data-dis-id = '" + triggerEl.dataset.disTriggerFor + "']");
       if(el) {
         // Get the relevant Disintegrate object
-        var disObj = getDisObj(el);
+        var disObj = disintegrate.getDisObj(el);
 
         // Apply our trigger
         triggerEl.addEventListener("click", function(e) {
@@ -139,6 +143,8 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
 <script type="text/javascript" src="disintegrate.js"></script>
 
 <script type="text/javascript">
+disintegrate.init();
+
 if(document.querySelectorAll("[data-dis-trigger-for]")) {
   // If you do anything with dises, you need to wait for them to 
   // all finish loading
@@ -150,7 +156,7 @@ if(document.querySelectorAll("[data-dis-trigger-for]")) {
       var el = document.querySelector("[data-dis-id = '" + triggerEl.dataset.disTriggerFor + "']");
       if(el) {
         // Get the relevant Disintegrate object
-        var disObj = getDisObj(el);
+        var disObj = disintegrate.getDisObj(el);
 
         // Apply our trigger
         triggerEl.addEventListener("click", function(e) {

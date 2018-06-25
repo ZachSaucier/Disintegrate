@@ -53,12 +53,14 @@
 &lt;/button&gt;</pre>
 
   <pre data-lang='javascript' class='prettyprint'>
+disintegrate.init();
+
 if(document.querySelector('[data-dis-type="simultaneous"]')) {
   window.addEventListener("disesLoaded", function() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.dataset.disType === "simultaneous") {
         disObj.elem.addEventListener("click", function(e) {
-          createSimultaneousParticles(disObj);
+          disintegrate.createSimultaneousParticles(disObj);
         });
       }
     });
@@ -74,18 +76,16 @@ if(document.querySelector('[data-dis-type="simultaneous"]')) {
 <script type="text/javascript" src="disintegrate.js"></script>
 
 <script type="text/javascript">
+disintegrate.init();
+
 if(document.querySelector('[data-dis-type="simultaneous"]')) {
   // If you do anything with dises, you need to wait for them to 
   // all finish loading
   window.addEventListener("disesLoaded", function() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.dataset.disType === "simultaneous") {
         disObj.elem.addEventListener("click", function(e) {
-          createSimultaneousParticles(disObj);
-        });
-
-        disObj.elem.addEventListener("disComplete", function(e) {
-          
+          disintegrate.createSimultaneousParticles(disObj);
         });
       }
     });

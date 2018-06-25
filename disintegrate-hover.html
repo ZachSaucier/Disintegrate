@@ -66,6 +66,8 @@
 
 <div class="middle-container">
   <h2>Hover demo - <a href="#"><i>view source</i></a></h2>
+
+  <p>We can fake a particle on elements with a hover effect by setting creating a class that shares the hover effect properties, add the class to our element by default, use JS to remove the class after our Disintegrte object is ready, then create the particles based on the data that we saved previously.</p>
 </div>
 
 <div class="middle-container section-container">
@@ -82,12 +84,14 @@
 &lt;/button&gt;</pre>
 
   <pre data-lang='javascript' class='prettyprint'>
+disintegrate.init();
+
 if(document.querySelector('[data-dis-type="simultaneous"]')) {
   window.addEventListener("disesLoaded", function() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.dataset.disType === "simultaneous") {
         disObj.elem.addEventListener("click", function(e) {
-          createSimultaneousParticles(disObj);
+          disintegrate.createSimultaneousParticles(disObj);
         });
       }
     });
@@ -103,21 +107,23 @@ if(document.querySelector('[data-dis-type="simultaneous"]')) {
 <script type="text/javascript" src="disintegrate.js"></script>
 
 <script type="text/javascript">
+disintegrate.init();
+
 if(document.querySelector('[data-dis-type="simultaneous"]')) {
   // If you do anything with dises, you need to wait for them to 
   // all finish loading
   window.addEventListener("disesLoaded", function() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.dataset.disType === "simultaneous") {
         disObj.elem.addEventListener("click", function(e) {
-          createSimultaneousParticles(disObj);
+          disintegrate.createSimultaneousParticles(disObj);
         });
       }
     });
   });
 
   window.addEventListener("particlesReady", function() {
-    dises[0].elem.classList.remove("hovered");
+    disintegrate.dises[0].elem.classList.remove("hovered");
   });
 }
 </script>

@@ -60,13 +60,15 @@
 &lt;/div&gt;</pre>
 
   <pre data-lang='javascript' class='prettyprint'>
+disintegrate.init();
+
 /* A simple drag effect demo */
 var objMoving;
 if(document.querySelector(".draggable")) {
   window.addEventListener("load", addListeners);
 
   function addListeners() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.classList.contains("draggable")) {
         disObj.elem.addEventListener('mousedown', function(e) { 
           objMoving = disObj;
@@ -138,13 +140,15 @@ if(document.querySelector(".draggable")) {
 <script type="text/javascript" src="disintegrate.js"></script>
 
 <script type="text/javascript">
+disintegrate.init();
+
 /* A simple drag effect demo */
 var objMoving;
 if(document.querySelector(".draggable")) {
   window.addEventListener("load", addListeners);
 
   function addListeners() {
-    dises.forEach(function(disObj) {
+    disintegrate.dises.forEach(function(disObj) {
       if(disObj.elem.classList.contains("draggable")) {
         disObj.elem.addEventListener('mousedown', function(e) { 
           objMoving = disObj;
