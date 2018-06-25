@@ -29,6 +29,9 @@ To add a custom particle type, simply create your particle to match the followin
 ```
 /* These are the attributes that Disintegrate will update or call in a Particle */
 var ExampleParticle = function() {
+  // Used to determine the correct particle type based on the data-dis-particle-type
+  this.name = "ExampleParticle";
+  
   // Used to calculate the total percent finished of the animation
   // It should the equal to the longest time you want a particle to animate for
   this.animationDuration = <int>;
@@ -43,7 +46,7 @@ var ExampleParticle = function() {
 }
 ```
 
-Then call `disAddParticleType("ExampleParticle");` where `ExampleParticle` matches the name of your custom particle.
+Then call `disAddParticleType(ExampleParticle);`.
 
 #### Creating custom animations
 
