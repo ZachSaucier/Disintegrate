@@ -51,7 +51,7 @@ var ExampleParticle = function() {
 }
 ```
 
-Then call `disAddParticleType(ExampleParticle);`.
+Then call `disintegrate.addParticleType(ExampleParticle);`.
 
 #### Creating custom animations
 
