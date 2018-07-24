@@ -1,6 +1,8 @@
 # Disintegrate
 A small JS library to break DOM elements into animated Canvas particles.
 
+For information about the technique itself, check out the [related CSS-Tricks article](https://css-tricks.com/adding-particle-effects-to-dom-elements-with-canvas/).
+
 ## Installation
 
 You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/releases) and Disintegrate.js directly into your project before using it or use `npm install disintegrate`. Make sure to call `disintegrate.init()` after Disintegrate (and html2canvas) is loaded for it to start applying its effects. 
