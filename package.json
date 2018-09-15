@@ -1,6 +1,6 @@
 {
   "name": "disintegrate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Break DOM elements into animated Canvas particles using html2canvas.",
   "main": "disintegrate.js",
   "scripts": {
