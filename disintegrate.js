@@ -562,10 +562,13 @@ function animateParticles(disObj) {
 }
 
 // Check to see if all the Disintegrate elements detected have been successfully loaded
+var raf;
 function checkAllLoaded() {
   if(disElems.length === dises.length) {
     window.dispatchEvent(new Event('disesLoaded'));
-    window.requestAnimationFrame(disUpdate);
+
+    if(typeof raf === "undefined")
+      raf = window.requestAnimationFrame(disUpdate);
   }
 }
 
@@ -609,11 +612,46 @@ function disUpdate() {
 /*********************/
 
 // Assure the initial capture is done
+let firstTime = true;
 function init() {
   disElems = document.querySelectorAll("[data-dis-type]");
+  dises = [];
+  numCanvasesLoaded = 0;
   
-  window.addEventListener("load", () => {
-    // Setup
+  if(firstTime) {
+    firstTime = false;
+
+    window.addEventListener("load", () => {
+      // Setup
+      disElems.forEach( el => {
+        if(el.tagName !== "IMG" || el.complete) {
+          processDisElement(el);
+        } else {
+          el.addEventListener("load", e => {
+            processDisElement(el);
+          });
+        }
+      });
+    });
+
+    // Update the screenshot and canvas sizes when the window changes size
+    var resizeTimer;
+    window.addEventListener("resize", e => {
+
+      // Wait for resize to "finish"
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout( () => {
+
+        dises.forEach( disObj => {
+          getScreenshot(disObj);
+
+          disObj.canvas.width = document.documentElement.scrollWidth; 
+          disObj.canvas.height = document.documentElement.scrollHeight;
+        });
+
+      }, 250);
+    });
+  } else {
     disElems.forEach( el => {
       if(el.tagName !== "IMG" || el.complete) {
         processDisElement(el);
@@ -623,25 +661,7 @@ function init() {
         });
       }
     });
-  });
-
-  // Update the screenshot and canvas sizes when the window changes size
-  var resizeTimer;
-  window.addEventListener("resize", e => {
-
-    // Wait for resize to "finish"
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout( () => {
-
-      dises.forEach( disObj => {
-        getScreenshot(disObj);
-
-        disObj.canvas.width = document.documentElement.scrollWidth; 
-        disObj.canvas.height = document.documentElement.scrollHeight;
-      });
-
-    }, 250);
-  });
+  }
 }
 
 
