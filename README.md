@@ -22,6 +22,9 @@ You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/
 	- [Trigger demo](https://zachsaucier.github.io/Disintegrate/disintegrate-trigger.html)
 	- [Hover demo](https://zachsaucier.github.io/Disintegrate/disintegrate-hover.html)
 
+- Favorite demos
+  - [Credit card deletion demo](https://codepen.io/Zeaklous/pen/OowezM)
+
 ### Built-in particle types
 
 - `Particle` - A rectangular particle that goes up in a sin wave, fading as it goes.
@@ -96,7 +99,7 @@ These events are fired on the Disintegrate element itself.
 ### Exposed API
 After including disintegrate.js, the following are available to your code to use as needed:
 
-- `disintegrate.init()` - Start Disintegrate (necessary for Disintegrate to be able to load in a Node file without error)
+- `disintegrate.init()` - Start Disintegrate (necessary for Disintegrate to be able to load in a Node file without error). Can be re-called later if you have new Disintegrate elements. 
 - `disintegrate.dises` - An array of all Disintegrate objects. 
 - `disintegrate.createSimultaneousParticles(disObj)` - A function to intiate the simultaneous particle creation for the given Disintegrate object. 
 - `disintegrate.getDisObj(element)` - A function to get the Disintegrate object for a given element.
