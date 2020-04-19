@@ -99,11 +99,17 @@ These events are fired on the Disintegrate element itself.
 ### Exposed API
 After including disintegrate.js, the following are available to your code to use as needed:
 
-- `disintegrate.init()` - Start Disintegrate (necessary for Disintegrate to be able to load in a Node file without error). Can be re-called later if you have new Disintegrate elements. 
+- `disintegrate.init()` - Start Disintegrate (necessary for Disintegrate to be able to load in a Node file without error) or reinitialize Disintegrate.
 - `disintegrate.dises` - An array of all Disintegrate objects. 
 - `disintegrate.createSimultaneousParticles(disObj)` - A function to intiate the simultaneous particle creation for the given Disintegrate object. 
 - `disintegrate.getDisObj(element)` - A function to get the Disintegrate object for a given element.
 - `disintegrate.addParticleType(Function)` - A function to add custom particle types that Disintegrate can recognize. It must at minimum meet Disintegrate's requirements for a particle. 
+
+Each disintegrate object also has a `.kill()` method that removes disintegrate object from the stored data and removes the relevant canvas from the page. This can be especially helpful when paired with the `disComplete` event:
+
+```
+disObj.elem.addEventListener("disComplete", () => disObj.kill() );
+```
 
 ### Known limitations
 
