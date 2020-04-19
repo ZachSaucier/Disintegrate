@@ -59,95 +59,108 @@ function getNumberArraysFromString(string) {
 /* Disintegrate functions */
 /**************************/
 
-var disElems,
+var disElems = [],
     dises = [],
     disParticleTypes = [];
 
 // Create a disObj for each Disintegrate element detected
 function processDisElement(el) {
-  let ignoreColors = [];
-  if(el.dataset.disIgnoreColors) {
-    ignoreColors = getNumberArraysFromString(el.dataset.disIgnoreColors);
-  }
+  if(!disElems.includes(el)) {
+    disElems.push(el);
 
-  let particleType = "Particle";
-  if(el.dataset.disParticleType) {
-    particleType = el.dataset.disParticleType;
-  }
-
-  let particleColor = [];
-  if(el.dataset.disColor) {
-    particleColor = getNumberArraysFromString(el.dataset.disColor)[0];
-  }
-
-  let particleReductionFactor = 35;
-  if(el.dataset.disReductionFactor) {
-    particleReductionFactor = parseInt(el.dataset.disReductionFactor);
-  }
-
-  let disObj = {
-    elem: el,
-    type: el.dataset.disType,
-    container: undefined,
-    actualWidth: el.offsetWidth,
-    actualHeight: el.offsetHeight,
-    lastWidth: el.offsetWidth,
-    lastHeight: el.offsetHeight,
-    count: 0,
-    particleArr: [],
-    animationDuration: 100,  // in ms 
-    canvas: undefined,
-    ctx: undefined,
-    scrnCanvas: undefined,
-    scrnCtx: undefined,
-    ignoreColors: ignoreColors,
-    isOutOfBounds: false,
-    isAnimating: false,
-    particleReductionFactor: particleReductionFactor,
-    particleType: particleType,
-    particleColor: particleColor
-  };
-
-  let container;
-  if(disObj.type === "self-contained") {
-    let parent = el.parentNode;
-    let wrapper = document.createElement('div');
-    wrapper.dataset.disContainer = "";
-    wrapper.style.width = disObj.lastWidth;
-    wrapper.style.height = disObj.lastHeight;
-    wrapper.style.overflow = "hidden";
-    let elemStyles = window.getComputedStyle(el);
-    wrapper.style.position = elemStyles.getPropertyValue("position");
-    wrapper.style.margin = elemStyles.getPropertyValue("margin");
-    wrapper.style.top = elemStyles.getPropertyValue("top");
-    wrapper.style.left = elemStyles.getPropertyValue("left");
-    wrapper.style.display = elemStyles.getPropertyValue("display");
-    el.style.margin = 0;
-    el.style.top = 0;
-    el.style.left = 0;
-
-    disObj.container = wrapper;
-
-    parent.replaceChild(wrapper, el);
-    wrapper.appendChild(el);
-
-    disObj.container = wrapper;
-  } else if(disObj.type === "contained") {
-    // Try to use the given container if a container Id is provided
-    if(el.dataset.disContainerId && document.querySelector("[data-dis-id = '" + el.dataset.disContainerId + "']")) {
-      disObj.container = document.querySelector("data-dis-container-id = " + el.dataset.disContainerId);
-    } else {
-      // Default to using the nearest Disintegrate container or the parent node
-      disObj.container = findParentWithAttr(el, "data-dis-container");
+    let ignoreColors = [];
+    if(el.dataset.disIgnoreColors) {
+      ignoreColors = getNumberArraysFromString(el.dataset.disIgnoreColors);
     }
+
+    let particleType = "Particle";
+    if(el.dataset.disParticleType) {
+      particleType = el.dataset.disParticleType;
+    }
+
+    let particleColor = [];
+    if(el.dataset.disColor) {
+      particleColor = getNumberArraysFromString(el.dataset.disColor)[0];
+    }
+
+    let particleReductionFactor = 35;
+    if(el.dataset.disReductionFactor) {
+      particleReductionFactor = parseInt(el.dataset.disReductionFactor);
+    }
+
+    let disObj = {
+      elem: el,
+      type: el.dataset.disType,
+      container: undefined,
+      actualWidth: el.offsetWidth,
+      actualHeight: el.offsetHeight,
+      lastWidth: el.offsetWidth,
+      lastHeight: el.offsetHeight,
+      count: 0,
+      particleArr: [],
+      animationDuration: 100,  // in ms 
+      canvas: undefined,
+      ctx: undefined,
+      scrnCanvas: undefined,
+      scrnCtx: undefined,
+      ignoreColors: ignoreColors,
+      isOutOfBounds: false,
+      isAnimating: false,
+      particleReductionFactor: particleReductionFactor,
+      particleType: particleType,
+      particleColor: particleColor,
+      kill: function() {
+        disElems = disElems.filter(item => JSON.stringify(item) !== JSON.stringify(this.elem));
+        this.elem.removeAttribute("data-dis-type");
+
+        document.body.removeChild(this.canvas);
+        
+        dises = dises.filter(item => JSON.stringify(item) !== JSON.stringify(this));
+        numCanvasesLoaded--;
+      }
+    };
+
+    let container;
+    if(disObj.type === "self-contained") {
+      let parent = el.parentNode;
+      let wrapper = document.createElement('div');
+      wrapper.dataset.disContainer = "";
+      wrapper.style.width = disObj.lastWidth;
+      wrapper.style.height = disObj.lastHeight;
+      wrapper.style.overflow = "hidden";
+      let elemStyles = window.getComputedStyle(el);
+      wrapper.style.position = elemStyles.getPropertyValue("position");
+      wrapper.style.margin = elemStyles.getPropertyValue("margin");
+      wrapper.style.top = elemStyles.getPropertyValue("top");
+      wrapper.style.left = elemStyles.getPropertyValue("left");
+      wrapper.style.display = elemStyles.getPropertyValue("display");
+      el.style.margin = 0;
+      el.style.top = 0;
+      el.style.left = 0;
+
+      disObj.container = wrapper;
+
+      parent.replaceChild(wrapper, el);
+      wrapper.appendChild(el);
+
+      disObj.container = wrapper;
+    } else if(disObj.type === "contained") {
+      // Try to use the given container if a container Id is provided
+      if(el.dataset.disContainerId && document.querySelector("[data-dis-id = '" + el.dataset.disContainerId + "']")) {
+        disObj.container = document.querySelector("data-dis-container-id = " + el.dataset.disContainerId);
+      } else {
+        // Default to using the nearest Disintegrate container or the parent node
+        disObj.container = findParentWithAttr(el, "data-dis-container");
+      }
+    }
+    
+    // Add this Disintegrate element to our list
+    dises.push(disObj);
+    // Create the canvases for this Disintegrate element
+    getScreenshot(disObj);
+    // See if all Dises have been loaded
+    checkAllLoaded();
   }
-  
-  // Add this Disintegrate element to our list
-  dises.push(disObj);
-  // Create the canvases for this Disintegrate element
-  getScreenshot(disObj);
-  // See if all Dises have been loaded
-  checkAllLoaded();
 }
 
 function getVisibleDimensions(node, referenceNode) {
@@ -562,10 +575,13 @@ function animateParticles(disObj) {
 }
 
 // Check to see if all the Disintegrate elements detected have been successfully loaded
+var raf;
 function checkAllLoaded() {
   if(disElems.length === dises.length) {
     window.dispatchEvent(new Event('disesLoaded'));
-    window.requestAnimationFrame(disUpdate);
+
+    if(typeof raf === "undefined")
+      raf = window.requestAnimationFrame(disUpdate);
   }
 }
 
@@ -609,12 +625,47 @@ function disUpdate() {
 /*********************/
 
 // Assure the initial capture is done
+let firstTime = true;
 function init() {
-  disElems = document.querySelectorAll("[data-dis-type]");
+  const disNodes = document.querySelectorAll("[data-dis-type]");
+
+  numCanvasesLoaded = 0;
   
-  window.addEventListener("load", () => {
-    // Setup
-    disElems.forEach( el => {
+  if(firstTime) {
+    firstTime = false;
+
+    window.addEventListener("load", () => {
+      // Setup
+      disNodes.forEach( el => {
+        if(el.tagName !== "IMG" || el.complete) {
+          processDisElement(el);
+        } else {
+          el.addEventListener("load", e => {
+            processDisElement(el);
+          });
+        }
+      });
+    });
+
+    // Update the screenshot and canvas sizes when the window changes size
+    var resizeTimer;
+    window.addEventListener("resize", e => {
+
+      // Wait for resize to "finish"
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout( () => {
+
+        dises.forEach( disObj => {
+          getScreenshot(disObj);
+
+          disObj.canvas.width = document.documentElement.scrollWidth; 
+          disObj.canvas.height = document.documentElement.scrollHeight;
+        });
+
+      }, 250);
+    });
+  } else {
+    disNodes.forEach( el => {
       if(el.tagName !== "IMG" || el.complete) {
         processDisElement(el);
       } else {
@@ -623,25 +674,7 @@ function init() {
         });
       }
     });
-  });
-
-  // Update the screenshot and canvas sizes when the window changes size
-  var resizeTimer;
-  window.addEventListener("resize", e => {
-
-    // Wait for resize to "finish"
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout( () => {
-
-      dises.forEach( disObj => {
-        getScreenshot(disObj);
-
-        disObj.canvas.width = document.documentElement.scrollWidth; 
-        disObj.canvas.height = document.documentElement.scrollHeight;
-      });
-
-    }, 250);
-  });
+  }
 }
 
 
