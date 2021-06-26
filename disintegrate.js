@@ -468,7 +468,7 @@ function createSimultaneousParticles(disObj) {
 // Take a "screenshot" of the given Dis object's element using html2canvas
 var numCanvasesLoaded = 0;
 function getScreenshot(disObj) {
-  html2canvas(disObj.elem, { scale: 1 }).then( canvas => {
+  html2canvas(disObj.elem, { scale: 1, useCORS: true }).then( canvas => {
     numCanvasesLoaded++;
     if(typeof disObj.scrnCanvas === "undefined") {
       disObj.scrnCanvas = canvas;
@@ -626,7 +626,16 @@ function disUpdate() {
 
 // Assure the initial capture is done
 let firstTime = true;
-function init() {
+function init(arr) {
+  // Convert given array to data attribute format
+  if(arr) {
+    arr.forEach(entry => {
+      for (const property in entry.data) {
+        entry.elem.dataset[property] = entry.data[property];
+      }
+    });
+  }
+
   const disNodes = document.querySelectorAll("[data-dis-type]");
 
   numCanvasesLoaded = 0;
