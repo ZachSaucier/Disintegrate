@@ -24,6 +24,7 @@ You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/
 
 - Favorite demos
   - [Credit card deletion demo](https://codepen.io/Zeaklous/pen/OowezM)
+  - [Kaiju laser demolition service component](https://codepen.io/ZachSaucier/pen/jOmNVaK)
 
 ### Built-in particle types
 
