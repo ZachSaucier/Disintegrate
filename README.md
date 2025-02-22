@@ -3,6 +3,12 @@ A small JS library to break DOM elements into animated Canvas particles.
 
 For information about the technique itself, check out the [related CSS-Tricks article](https://css-tricks.com/adding-particle-effects-to-dom-elements-with-canvas/).
 
+## Support
+
+Did you find this repo useful? I'd really appreciate it if you would consider buying me a coffee!
+
+<a href="https://www.buymeacoffee.com/zachsaucier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 ## Installation
 
 You can either include [html2canvas.js](https://github.com/niklasvh/html2canvas/releases) and Disintegrate.js directly into your project before using it or use `npm install disintegrate`. Make sure to call `disintegrate.init()` after Disintegrate (and html2canvas) is loaded for it to start applying its effects. 
@@ -126,11 +132,6 @@ disObj.elem.addEventListener("disComplete", () => disObj.kill() );
 
 ### Known limitations
 
-Most limitations on this approach stem from the use of [html2canvas](http://html2canvas.hertzen.com/) to render the DOM element on a Canvas. This includes, but is not limited to, nested transforms within the Disintegrate element and the lack of clip path support. For a more full list of limitations caused by html2canvas, look at [its feature page](http://html2canvas.hertzen.com/features/)). 	
-___
-
-## Support
-
-Did you find this repo useful? I'd really appreciate it if you would consider buying me a coffee!
+Most limitations on this approach stem from the use of [html2canvas](http://html2canvas.hertzen.com/) to render the DOM element on a Canvas. This includes, but is not limited to, nested transforms within the Disintegrate element and the lack of clip path support. For a more full list of limitations caused by html2canvas, look at [its feature page](http://html2canvas.hertzen.com/features/)). 
 
 <a href="https://www.buymeacoffee.com/zachsaucier" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
